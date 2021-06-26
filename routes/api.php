@@ -21,3 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/users', '\App\Http\Controllers\UserController@create');
 Route::get('/users', '\App\Http\Controllers\UserController@search');
+Route::get('/users/{userId}', '\App\Http\Controllers\UserController@index');
+
+
+Route::post('/accounts', '\App\Http\Controllers\AccountController@create');

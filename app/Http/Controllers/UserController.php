@@ -34,4 +34,16 @@ class UserController extends Controller
         $query = $request->input('q');
         return response(\App\User::where('name', 'like', $query.'%')->orWhere('cpf', 'like', $query.'%')->get()->toarray());
     }
+
+    public function index(Request $request, $userId)
+    {
+        $result = \App\User::where('id', '=', $userId)->with('accounts')->get()->toarray();
+        if(count($result) == 0) {
+            return response([
+                'message' => 'User not found'
+            ], 404);
+        }
+        
+        return response($result[0]);
+    }
 }

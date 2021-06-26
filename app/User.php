@@ -18,4 +18,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    public function accounts()
+    {
+        return $this->hasMany(\App\Account::class, 'fk_user', 'id');
+    }
 }
