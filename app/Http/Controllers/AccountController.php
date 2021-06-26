@@ -57,4 +57,15 @@ class AccountController extends Controller
 
         return response($account);
     }
+
+    public function index(Request $request, $accountId) {
+        $result = \App\Account::where('id', '=', $accountId)->with(['owner', 'transactions'])->get()->toarray();
+        if(count($result) == 0) {
+            return response([
+                'message' => 'Account not found'
+            ], 404);
+        }
+
+        return response($result[0]);
+    }
 }

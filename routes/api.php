@@ -25,3 +25,7 @@ Route::get('/users/{userId}', '\App\Http\Controllers\UserController@index');
 
 
 Route::post('/accounts', '\App\Http\Controllers\AccountController@create');
+Route::get('/accounts/{accountId}', '\App\Http\Controllers\AccountController@index');
+
+
+Route::post('/transactions', '\App\Http\Controllers\TransactionController@create');
