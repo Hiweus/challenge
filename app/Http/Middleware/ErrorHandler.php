@@ -22,13 +22,13 @@ class ErrorHandler
         if (!empty($response->exception) && $response->exception instanceof \Illuminate\Validation\ValidationException) {
             return response([
                 'message' => $response->exception->errors()
-            ]);
+            ], 400);
         }
         
         if (!empty($response->exception)) {
             return response([
-                'message' => $response->exception->getMessage()
-            ]);
+                'message' => env('APP_DEBUG') ? $response->exception->getMessage() : 'Internal error enable debug mode to visualize'
+            ], 500);
         }
         
         return $response;
