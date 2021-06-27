@@ -15,6 +15,9 @@ class UserController extends Controller
         if(isset($inputs['cpf'])) {
             $inputs['cpf'] = str_replace(['.', '-'], '', $inputs['cpf']);
         }
+        if(isset($inputs['password'])) {
+            $inputs['password'] = hash("sha256", $inputs['password']);
+        }
 
         $inputs = Validator::make($inputs, [
             'name' => ['required'],
