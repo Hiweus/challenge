@@ -6,6 +6,9 @@ services:
     container_name: idez-web
     volumes:
       - .:/var/www/app:delegated
+    hostname: dweb
+    networks:
+      - backend
     ports:
       - 8000:8080
     depends_on:
@@ -13,6 +16,21 @@ services:
     environment:
       - PHP_MEMORY_LIMIT=-1
       - COMPOSER_MEMORY_LIMIT=-1
+
+  run_migrations:
+    image: ambientum/php:7.4-nginx
+    container_name: idez-migrations
+    command: php artisan migrate
+    volumes:
+      - .:/var/www/app:delegated
+    networks:
+      - backend
+    depends_on:
+      - postgres
+    environment:
+      - PHP_MEMORY_LIMIT=-1
+      - COMPOSER_MEMORY_LIMIT=-1
+
   postgres:
     image: postgres:12-alpine
     container_name: idez-postgres
@@ -26,6 +44,13 @@ services:
       - 5432:5432
     volumes:
       - idez-data:/var/lib/postgresql/data:delegated
+    hostname: dpsql
+    networks:
+      - backend
+  
 volumes:
   idez-data:
     driver: local
+networks:
+  backend:
+    driver: "bridge"
