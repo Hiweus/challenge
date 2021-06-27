@@ -1,3 +1,76 @@
+# Solução
+
+## Endpoints
+
+---
+
+### GET /api/users/**:user_id**
+Lista informações específicas de um usuário.
+
+### GET /api/users
+Lista todos os usuários, através do parâmetro **q** na url é possível realizar busca filtrando pelo nome ou documento.
+
+### POST /api/users
+Cria um novo usuário.
+```json
+// exemplo de payload
+{
+	"name": "custom name",
+	"cpf": "140.066.345-34",
+	"phone": "31994458607",
+	"email": "teste1@email.com",
+	"password": "exemplo de senha"
+}
+```
+
+----
+
+### POST /api/accounts
+Cria uma nova conta.
+```json
+// exemplo de payload PJ
+{
+	"agency": "0001",
+	"number": "1827 3212 32931 9322",
+	"digit": "1",
+	"type": "Company",
+	"name": "Nome empresa",
+	"document": "025569933843",
+	"social_reason": "321343423",
+	"fk_user": "2"
+}
+```
+```json
+// exemplo de payload PF
+{
+	"agency": "0001",
+	"number": "1827 3212 32931 9322",
+	"digit": "1",
+	"type": "Person",
+	"name": "Nome da pessoa",
+	"document": "0255699338",
+	"fk_user": "2"
+}
+```
+
+
+### GET /api/accounts/**:account_id**
+Lista informações mais específicas de uma conta.
+
+---
+
+### POST /api/transactions
+Cria uma transação vinculada a uma conta.
+```json
+// exemplo payload para transacao
+{
+	"fk_account": "3",
+	"value": -1000.2,
+	"type": "Purchase"
+}
+```
+
+
 # Desafio Backend
 
 ## Problema
